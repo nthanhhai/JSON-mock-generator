@@ -1,11 +1,8 @@
 ﻿using CommandLine;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace JSON_mock_generator
@@ -110,9 +107,13 @@ namespace JSON_mock_generator
         {
             New, Acitve, Complete
         }
+        [JsonRequired]
         public string GUID { get; set; }
+        [JsonRequired]
         public string Name { get; set; }
+        [JsonRequired]
         public DateTime Date { get; set; }
+        [JsonRequired]
         public StateEnum State { get; set; }
     }
 }
