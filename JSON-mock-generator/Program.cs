@@ -21,7 +21,8 @@ namespace JSON_mock_generator
                     {
                         int numberOfRecord = int.Parse(n.number), rndLength = 0;                    
                         DataTable dt = new DataTable();
-                        string outputFilePath = "";
+                        string outputFilePath = "testdata.json";
+                        // generating data
                         if (numberOfRecord > 0)
                         {
                             dt.Columns.Add("GUID", typeof(string));
@@ -34,14 +35,10 @@ namespace JSON_mock_generator
                                 Guid guid = Guid.NewGuid();
                                 // generate random unique name                  
                                 Random rnd = new Random();
-                                if (!String.IsNullOrEmpty(n.isInvalid) && n.isInvalid == "Y")
-                                {
-                                    rndLength = rnd.Next(257, 512);
-                                }
-                                else
-                                {
-                                    rndLength = rnd.Next(1, 256);                                    
-                                }
+                                if (!String.IsNullOrEmpty(n.isInvalid) && n.isInvalid == "Y")                           
+                                    rndLength = rnd.Next(257, 512);                               
+                                else                              
+                                    rndLength = rnd.Next(1, 256);                                                                   
                                 string uniqueName = UniqueASCIIName(dt, rndLength);
                                 // generate Date from 1970 to 2010
                                 DateTime from = new DateTime(1970, 01, 01);
@@ -50,20 +47,16 @@ namespace JSON_mock_generator
                                 // generate State
                                 string state = RandomEnumValue<data.StateEnum>().ToString();
                                 dt.Rows.Add(guid, uniqueName, date, state);
+                                Console.WriteLine($"Record {i} created");
                             }
                         }
-                        if (String.IsNullOrEmpty(n.outputFileName))
-                        {
+                        // writing output
+                        if (String.IsNullOrEmpty(n.outputFileName))                        
                             outputFilePath = "testdata.json";                            
-                        }
-                        else {
-                            outputFilePath = n.outputFileName;
-                        }
                         string JSONString = JsonConvert.SerializeObject(dt, Formatting.Indented);
-                        using (StreamWriter outputFile = new StreamWriter(outputFilePath))
-                        {
+                        using (StreamWriter outputFile = new StreamWriter(outputFilePath))                     
                             outputFile.WriteLine(JSONString);
-                        }
+                        Console.WriteLine("Test data genreation complete!");
                     }
                     catch (Exception ex)
                     {
