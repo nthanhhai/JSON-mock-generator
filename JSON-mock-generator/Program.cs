@@ -129,17 +129,4 @@ namespace JSON_mock_generator
         [JsonRequired]
         public StateEnum State { get; set; }
     }
-
-    public class NameList
-    {
-        public string[] first { get; set; }
-        public string[] last { get; set; }
-
-        public NameList()
-        {
-            first = new string[] { };
-            last = new string[] { };
-        }
-    }
-
 }
